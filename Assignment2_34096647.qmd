@@ -1,8 +1,58 @@
 ---
 title: "GIT Written Guide"
+subtitle: "Reproducible Project Setup with Git, GitHub, and RStudio"
 author: "Akbar Rakha Syahpradana (34096647)"
 format: pdf
 ---
+
+# Step 1: Create Your R Studio Project and QMD File
+
+1.  Open R Studio.
+
+2.  Create a new project.
+
+    ::: callout-note
+    ### How to create new project?
+
+    Go to **File \> New Project \> New Directory \> New Project** to get started.
+
+    Enter the project's name and browse the location where you want to store your project, and click create project .
+    :::
+
+3.  Create a new .qmd file.
+
+    ::: callout-note
+    ### How to create new .qmd file?
+
+    Go to **File \> New File \> Quarto Document**
+
+    Enter the title and author's name. You also can choose the output (e.g. HTML or PDF).
+    :::
+
+4.  The section at the top of your `.qmd` file (between`---`) is the YAML header. Here, you can change the title, subtitle, author name, output format (e.g., PDF or HTML), and theme.
+
+5.  Don't forget to save your file and rename it.
+
+::: callout-caution
+This setup only creates a new project **without version control**. It simply creates a new project folder in your chosen location.
+:::
+
+# Step 2: Initialise The Git Repository
+
+1.  Open your terminal in R Studio
+2.  Make sure it has the correct path. If not, use `cd` command to change the directory
+
+``` bash
+cd path/to/your/project
+```
+
+3.  If you are in the correct directory, initialise the new Git repository using this command in your terminal:
+
+``` bash
+git init
+```
+
+# BELOW ARE TEMPLATE ONLY!!
 
 # Create New Repository
 
