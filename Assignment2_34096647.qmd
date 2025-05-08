@@ -5,7 +5,11 @@ author: "Akbar Rakha Syahpradana (34096647)"
 format: pdf
 ---
 
-# Step 1: Create Your R Studio Project and QMD File
+# Setting Up Your Project and Version Control (Git)
+
+This section will guide you through creating a Git repository from existing work and setting up the remote repository.
+
+## Step 1: Create Your R Studio Project and QMD File
 
 1.  Open R Studio.
 
@@ -26,7 +30,7 @@ format: pdf
 
     Go to **File \> New File \> Quarto Document**
 
-    Enter the title and author's name. You also can choose the output (e.g. HTML or PDF).
+    Enter the title and author's name. You can also choose the output (e.g. HTML or PDF or Word).
     :::
 
 4.  The section at the top of your `.qmd` file (between`---`) is the YAML header. Here, you can change the title, subtitle, author name, output format (e.g., PDF or HTML), and theme.
@@ -37,7 +41,7 @@ format: pdf
 This setup only creates a new project **without version control**. It simply creates a new project folder in your chosen location.
 :::
 
-# Step 2: Initialise The Git Repository
+## Step 2: Initialise The Git Repository
 
 1.  Open your terminal in R Studio
 2.  Make sure it has the correct path. If not, use `cd` command to change the directory
