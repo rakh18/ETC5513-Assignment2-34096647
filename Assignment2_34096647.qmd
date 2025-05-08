@@ -56,43 +56,18 @@ cd path/to/your/project
 git init
 ```
 
-# BELOW ARE TEMPLATE ONLY!!
+# Working with Branches and Making Changes
 
-# Create New Repository
+3-5
 
-1.  Go to the [GitHub](https://github.com) website, and log in to your account
+# Handling Merge Conflicts
 
-2.  Create new Repository (See Figure)
+6
 
-# Clone
+# Tags, Clean-up, and History
 
-3.  Open terminal
+7-9
 
-4.  Navigate to the folder where you want to store your project (Here I want to create inside my ETC5513 folder in my Desktop)
+# Undoing a Commit Without Losing Your Work
 
-``` bash
-cd Desktop/ETC5513
-```
-
-3.  Copy the SSH from github (See Figure), and clone using `git clone` in your terminal
-
-``` bash
-git clone git@github.com:rakh18/Assignment2_Demo.git
-```
-
-# Creating New Project and QMD File
-
-1.  Open R Studio
-2.  Go to **File --\> New Project --\> Existing Directory** (See Figure). In Existing directory tab, browse the location where you stored your GIT project.
-3.  After successfully created your project, create a new qmd file.
-4.  Push the changes!
-
-``` bash
-git add .
-git commit -m "Messages"
-git push origin main
-```
-
-5.  Regularly check your github, make sure it always up to date.
-
-# Creating Branch
+10
