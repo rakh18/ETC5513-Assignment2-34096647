@@ -73,7 +73,7 @@ This setup only creates a new project **without version control**. It simply cre
 
     ```{r}
     #| label: fig-directory
-    #| fig-cap: "New Repository and Copy SSH URL from GitHub."
+    #| fig-cap: "Correct Directory."
     #| out-width: "80%"
     #| echo: false
     knitr::include_graphics("Images/step2_img.png")
@@ -134,8 +134,62 @@ This setup only creates a new project **without version control**. It simply cre
 
 # Working with Branches and Making Changes
 
-3-5
+This section will guide you through creating a new branch, making changes to your project, and pushing those changes to GitHub. You’ll also learn how to amend a commit.
 
+## Create a new branch
+
+1.  Go to your R Studio terminal.
+
+2.  You can create new branch by `git branch (branch_name)` and switch to that branch using `git switch (branch_name)` See @fig-branch.
+
+    ::: callout-tip
+    ### or do this in one command
+
+    git switch -c (branch_name)
+    :::
+
+    ```{r}
+    #| label: fig-branch
+    #| fig-cap: "Creating Branch."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/create_branch.png")
+    ```
+
+3.  If you currently on the new branch, you can make changes and commit the changes in your branch using: 
+
+    ```bash
+    git add .
+    git commit -m "Your Messages"
+    ```
+4. You can check your branches in GitHub (See @fig-check-branch).
+
+    ```{r}
+    #| label: fig-check_branch
+    #| fig-cap: "Check Branches in GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/check_branch.png")
+    ```
+## Amend Previous Commit
+Assuming you’ve already committed your changes but forgot to include the data folder, you can amend your previous commit to add it.
+
+1. Add the data folder in your project folder.
+
+2. Use this command to amend previous commit, and push it (See @fig-amend):
+
+    ```bash
+    git add data/
+    git commit --ammend -m "Your Messages"
+    git push -u origin (branch_name)
+    ```
+    ```{r}
+    #| label: fig-amend
+    #| fig-cap: "Command for Amend."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/amend.png")
+    ```
 # Handling Merge Conflicts
 
 6
