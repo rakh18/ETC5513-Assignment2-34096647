@@ -23,7 +23,7 @@ This section will guide you through creating a Git repository from existing work
     Enter the project's name and browse the location where you want to store your project, and click create project .
     :::
 
-3.  Create a new .qmd file.
+3.  Create a new `.qmd` file.
 
     ::: callout-note
     ### How to create new .qmd file?
@@ -33,9 +33,29 @@ This section will guide you through creating a Git repository from existing work
     Enter the title and author's name. You can also choose the output (e.g. HTML or PDF or Word).
     :::
 
-4.  The section at the top of your `.qmd` file (between`---`) is the YAML header. Here, you can change the title, subtitle, author name, output format (e.g., PDF or HTML), and theme.
+4.  The section at the top of your `.qmd` file (between`---`) is the YAML header. Here, you can change the title, subtitle, author name, output format (e.g., PDF or HTML), and theme. The output for HTML would be like @fig-html-output
+
+    ```{r}
+    #| label: fig-html-output
+    #| fig-cap: "New Repository and Copy SSH URL from GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/step1_img.png")
+    ```
 
 5.  Don't forget to save your file and rename it.
+
+6.  Create a `.gitignore` file to prevent Git from tracking files that shouldn't be included in version control.
+
+    For example, we don’t want Git to track the .Rproj.user/ folder, which is automatically created when we make a new R project. To exclude it, we need to include that line in the text file.
+
+    ::: callout-note
+    ### Creating .gitignore file
+
+    Go to **File \> New File \> Text File**
+
+    type .Rproj.user/ and save the file as .gitignore.
+    :::
 
 ::: callout-caution
 This setup only creates a new project **without version control**. It simply creates a new project folder in your chosen location.
@@ -44,17 +64,73 @@ This setup only creates a new project **without version control**. It simply cre
 ## Step 2: Initialise The Git Repository
 
 1.  Open your terminal in R Studio
-2.  Make sure it has the correct path. If not, use `cd` command to change the directory
 
-``` bash
-cd path/to/your/project
-```
+2.  Make sure it has the correct path (See @fig-directory). If not, use `cd` command to change the directory
+
+    ``` bash
+    cd path/to/your/project
+    ```
+
+    ```{r}
+    #| label: fig-directory
+    #| fig-cap: "New Repository and Copy SSH URL from GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/step2_img.png")
+    ```
 
 3.  If you are in the correct directory, initialise the new Git repository using this command in your terminal:
 
-``` bash
-git init
-```
+    ``` bash
+    git init
+    ```
+
+4.  Add all files to staging area using `git add`. You can use `git add .` to stage all the files, or just use `git add your_file_name` for specific file.
+
+5.  Commit to the repository.
+
+    ``` bash
+    git status
+    git add .
+    git commit -m "Input your commit message here"
+    ```
+
+6.  Set up your remote repository.Go to \[GitHub\] "https://github.com/" and create a new repository without README, .gitignore, or license (See @fig-copy-ssh)
+
+7.  Copy the **SSH URL** (See @fig-copy-ssh).
+
+    ```{r}
+    #| label: fig-copy-ssh
+    #| fig-cap: "New Repository and Copy SSH URL from GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/copy_ssh_url.pdf")
+    ```
+
+8.  Go back to your terminal in R Studio, add the remote repository URL to your local repository and push your local repository to GitHub.
+
+    ``` bash
+    git remote add origin (paste your SSH URL here)
+    git push -u origin main
+    ```
+
+9.  (Optional but recommended) Add a license to your repository.
+
+    A license gives clear permission for others to use your work. Without a license, even if your project is public, others do not have the right to copy, use, or share it. Adding a license shows what people are allowed to do with your code and helps protect your work.
+
+    ::: callout-note
+    ### How to add license?
+
+    Go to **New file \> Create new file \> Text File**, Copy and paste from \[LICENSE\] "<https://choosealicense.org/>"
+
+    Don’t forget to commit and push:
+
+    ``` bash
+    git add LICENSE
+    git commit -m "Add license file"
+    git push
+    ```
+    :::
 
 # Working with Branches and Making Changes
 
