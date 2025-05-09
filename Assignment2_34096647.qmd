@@ -156,13 +156,14 @@ This section will guide you through creating a new branch, making changes to you
     knitr::include_graphics("Images/create_branch.png")
     ```
 
-3.  If you currently on the new branch, you can make changes and commit the changes in your branch using: 
+3.  If you currently on the new branch, you can make changes and commit the changes in your branch using:
 
-    ```bash
+    ``` bash
     git add .
     git commit -m "Your Messages"
     ```
-4. You can check your branches in GitHub (See @fig-check-branch).
+
+4.  You can check your branches in GitHub (See @fig-check-branch).
 
     ```{r}
     #| label: fig-check_branch
@@ -171,18 +172,25 @@ This section will guide you through creating a new branch, making changes to you
     #| echo: false
     knitr::include_graphics("Images/check_branch.png")
     ```
-## Amend Previous Commit
-Assuming you’ve already committed your changes but forgot to include the data folder, you can amend your previous commit to add it.
 
-1. Add the data folder in your project folder.
+    ## Amend Previous Commit
 
-2. Use this command to amend previous commit, and push it (See @fig-amend):
+    Assuming you’ve already committed your changes but forgot to include the data folder, you can amend your previous commit to add it.
 
-    ```bash
+5.  Add the data folder in your project folder.
+
+6.  Use this command to amend previous commit, and push it (See @fig-amend):
+
+    ``` bash
     git add data/
     git commit --ammend -m "Your Messages"
     git push -u origin (branch_name)
     ```
+
+    ::: callout-tip
+    The `-u` flag tells Git to remember the connection between your local branch and the remote one. Next time, you can simply run `git push`, and Git will remember the connection.
+    :::
+
     ```{r}
     #| label: fig-amend
     #| fig-cap: "Command for Amend."
@@ -190,9 +198,57 @@ Assuming you’ve already committed your changes but forgot to include the data 
     #| echo: false
     knitr::include_graphics("Images/amend.png")
     ```
+
 # Handling Merge Conflicts
 
-6
+If you make changes to the same line in both your new branch and the main branch, Git will detect a conflict and show a merge conflict when you try to combine them.
+
+1.  Assuming that you have made changes in both main branch and new branch (in the same line). Merge the changes in main from the new branch:
+
+    ``` bash
+    git switch main
+    git merge (branch_name)
+    ```
+
+2.  Git will show the merge conflict (See @fig-conflict)
+
+    ```{r}
+    #| label: fig-conflict
+    #| fig-cap: "Merge Conflict."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/conflict.png")
+    ```
+
+    ::: callout-important
+    \<\<\<\<\<\<\< HEAD
+
+    This is the version from the main branch.
+
+    =======
+
+    This is the version from the other branch (e.g., testbranch).
+
+    \>\>\>\>\>\>\> testbranch
+
+    This means:
+
+    -   Everything between `<<<<<<< HEAD` and `=======` is from the **main** branch.
+
+    -   Everything after `=======` until `>>>>>>> branch-name` is from the **branch you’re merging in** (like `testbranch`).
+    :::
+
+3.  To resolve the merge conflict, edit the file to keep which changes you want (or combine them), and make sure you remove the conflict markers (\<\<\<\<\<\<\< HEAD, ======= and \>\>\>\>\>\>\> branch_name).
+
+4. Save the changes and push it with meaningful commit message. Chech the git status in GitHub (See @fig-gitstatus)
+
+    ```{r}
+    #| label: fig-gitstatus
+    #| fig-cap: "Git Status in GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/git_status.pdf")
+    ```
 
 # Tags, Clean-up, and History
 
