@@ -1,6 +1,6 @@
 ---
-title: "GIT Written Guide"
-subtitle: "Reproducible Project Setup with Git, GitHub, and RStudio"
+title: "Written Guide:"
+subtitle: "Reproducible Project Setup Using Git, GitHub, and RStudio"
 author: "Akbar Rakha Syahpradana (34096647)"
 format: pdf
 ---
@@ -18,7 +18,7 @@ This section will guide you through creating a Git repository from existing work
     ::: callout-note
     ### How to create new project?
 
-    Go to **File \> New Project \> New Directory \> New Project** to get started.
+    Go to **File \> New Project \> New Directory \> New Project**.
 
     Enter the project's name and browse the location where you want to store your project, and click create project .
     :::
@@ -54,7 +54,7 @@ This section will guide you through creating a Git repository from existing work
 
     Go to **File \> New File \> Text File**
 
-    type .Rproj.user/ and save the file as .gitignore.
+    type .Rproj.user/ and save the file as .gitignore
     :::
 
 ::: callout-caution
@@ -87,7 +87,7 @@ This setup only creates a new project **without version control**. It simply cre
 
 4.  Add all files to staging area using `git add`. You can use `git add .` to stage all the files, or just use `git add your_file_name` for specific file.
 
-5.  Commit to the repository.
+5.  Check git status and commit to the repository.
 
     ``` bash
     git status
@@ -95,7 +95,9 @@ This setup only creates a new project **without version control**. It simply cre
     git commit -m "Input your commit message here"
     ```
 
-6.  Set up your remote repository.Go to \[GitHub\] "https://github.com/" and create a new repository without README, .gitignore, or license (See @fig-copy-ssh)
+6.  Set up your remote repository.
+
+    Go to \[GitHub\] "https://github.com/" and create a new repository without README, .gitignore, or license (See @fig-copy-ssh)
 
 7.  Copy the **SSH URL** (See @fig-copy-ssh).
 
@@ -107,10 +109,10 @@ This setup only creates a new project **without version control**. It simply cre
     knitr::include_graphics("Images/copy_ssh_url.pdf")
     ```
 
-8.  Go back to your terminal in R Studio, add the remote repository URL to your local repository and push your local repository to GitHub.
+8.  Go back to your terminal in R Studio, add the remote repository URL to your local repository and push to GitHub.
 
     ``` bash
-    git remote add origin (paste your SSH URL here)
+    git remote add origin <paste your SSH URL here>
     git push -u origin main
     ```
 
@@ -140,12 +142,12 @@ This section will guide you through creating a new branch, making changes to you
 
 1.  Go to your R Studio terminal.
 
-2.  You can create new branch by `git branch (branch_name)` and switch to that branch using `git switch (branch_name)` See @fig-branch.
+2.  You can create new branch by `git branch branch_name` and switch to that branch using `git switch branch_name` See @fig-branch.
 
     ::: callout-tip
-    ### or do this in one command
+    ### Or do this in one command
 
-    git switch -c (branch_name)
+    git switch -c branch_name
     :::
 
     ```{r}
@@ -156,7 +158,7 @@ This section will guide you through creating a new branch, making changes to you
     knitr::include_graphics("Images/create_branch.png")
     ```
 
-3.  If you currently on the new branch, you can make changes and commit the changes in your branch using:
+3.  If you are currently on the new branch, you can make changes and commit them using:
 
     ``` bash
     git add .
@@ -173,13 +175,21 @@ This section will guide you through creating a new branch, making changes to you
     knitr::include_graphics("Images/check_branch.png")
     ```
 
-    ## Amend Previous Commit
+## Amend Previous Commit
 
-    Assuming you’ve already committed your changes but forgot to include the data folder, you can amend your previous commit to add it.
+Assuming you’ve already committed your changes but forgot to include the data folder, you can amend your previous commit to add it.
 
-5.  Add the data folder in your project folder.
+::: callout-note
+### When and Why to use –-amend?
 
-6.  Use this command to amend previous commit, and push it (See @fig-amend):
+We use `--amend` when we want to **update the most recent commit**.
+
+For example, to include a file we forgot to add, or to fix a typo in the commit message. It lets us keep the commit history clean without creating a second, separate commit for something small.
+:::
+
+1.  Add the data folder in your project folder.
+
+2.  Use this command to amend previous commit, and push it (See @fig-amend):
 
     ``` bash
     git add data/
@@ -203,7 +213,7 @@ This section will guide you through creating a new branch, making changes to you
 
 If you make changes to the same line in both your new branch and the main branch, Git will detect a conflict and show a merge conflict when you try to combine them.
 
-1.  Assuming that you have made changes in both main branch and new branch (in the same line). Merge the changes in main from the new branch:
+1.  Assuming you have made changes to the same line in both the main branch and the new branch, you can now merge the new branch into main:
 
     ``` bash
     git switch main
@@ -240,7 +250,9 @@ If you make changes to the same line in both your new branch and the main branch
 
 3.  To resolve the merge conflict, edit the file to keep which changes you want (or combine them), and make sure you remove the conflict markers (\<\<\<\<\<\<\< HEAD, ======= and \>\>\>\>\>\>\> branch_name).
 
-4. Save the changes and push it with meaningful commit message. Chech the git status in GitHub (See @fig-gitstatus)
+4.  Save the changes and push it with meaningful commit message.
+
+5.  Check the git status in GitHub (See @fig-gitstatus)
 
     ```{r}
     #| label: fig-gitstatus
@@ -252,7 +264,86 @@ If you make changes to the same line in both your new branch and the main branch
 
 # Tags, Clean-up, and History
 
-7-9
+Now that your changes have been merged, this section covers how to tag your project version, clean up branches you no longer need, and view your commit history in a condensed format to keep your Git workflow organized and clear.
+
+## Create a Tag
+
+Tags let you mark a milestone in your project's history, such as v1.0 after a successful merge. In this step, you will create a tag for your latest commit so you can easily refer to that version later.
+
+1.  Go to your terminal in R Studio.
+
+2.  Make sure you're on the main branch (or the branch with the commit you want to tag).
+
+3.  Use this command to tag the most recent commit as v1.0, and push the tag:
+
+    ``` bash
+    git tag -a v1.0 -m "Write a message to describe your milestone"
+    git push origin v1.0
+    ```
+
+    ::: callout-tip
+    ### What if I want to tag other commit (not the most recent)?
+
+    You can also tag a previous commit by first checking the history with `git log --oneline`, which will be covered in the @sec-git-log.
+
+    Then, use `git tag -a v0.9 <commit-code> -m "Describe the tag"` to tag that commit.
+
+    You can replace `v0.9` with any tag name that suits your project. This is useful if you forgot to tag an earlier milestone.
+    :::
+
+4.  Check the tag. You can check it from GitHub (See @fig-tag). Or, you can also check it using:
+
+    ``` bash
+    git tag
+    ```
+
+    ```{r}
+    #| label: fig-tag
+    #| fig-cap: "Check the Tag."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/tag.png")
+    ```
+
+## Deleting Branch
+
+Deleting a branch after merging helps avoid clutter and confusion, especially when working on multiple features or versions.
+
+1.  Make sure you are on the **main** branch (or any branch other than the one you want to delete). Git won't let you delete the branch you're currently on.
+
+2.  Delete the branch locally:
+
+    ``` bash
+    git branch -d branch_name
+    ```
+
+3.  Delete the branch on GitHub (remote):
+
+    ``` bash
+    git push origin --delete branch_name
+    ```
+
+## Commit History {#sec-git-log}
+
+Sometimes, you just want a quick overview of what has been committed without all the details. You can use the following command to see a short version of your Git commit history:
+
+``` bash
+git log --oneline
+```
+
+Then it will show you the output like @fig-log. This shows each commit as a single line, with the commit hash and its message. It's useful for finding commit IDs, reviewing your work at a glance, or tagging a past commit.
+
+```{r}
+#| label: fig-log
+#| fig-cap: "git log --oneline output."
+#| out-width: "80%"
+#| echo: false
+knitr::include_graphics("Images/log.png")
+```
+
+::: callout-note
+**HEAD** shows your current location in the repository. It points to the latest commit on the branch you’re working on.
+:::
 
 # Undoing a Commit Without Losing Your Work
 
