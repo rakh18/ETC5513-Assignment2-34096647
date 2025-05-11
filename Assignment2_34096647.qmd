@@ -1,0 +1,418 @@
+---
+title: "Written Guide:"
+subtitle: "Reproducible Practices Using Git, GitHub, and RStudio"
+author: "Akbar Rakha Syahpradana (34096647)"
+format: pdf
+---
+
+# 1. Setting Up Your Project and Version Control (Git)
+
+This section will guide you through creating a Git repository from existing work and setting up the remote repository.
+
+## Step 1: Create Your R Studio Project and QMD File
+
+1.  Open R Studio.
+
+2.  Create a new project.
+
+    ::: callout-note
+    ### How to create new project?
+
+    Go to **File \> New Project \> New Directory \> New Project**.
+    :::
+
+    Enter the project's name and browse the location where you want to store your project, and click create project .
+
+3.  Create a new `.qmd` file.
+
+    ::: callout-note
+    ### How to create new .qmd file?
+
+    Go to **File \> New File \> Quarto Document**
+    :::
+
+    Enter the title and author's name. You can also choose the output (e.g. HTML or PDF or Word).
+
+4.  The section at the top of your `.qmd` file (between`---`) is the YAML header. Here, you can change the title, subtitle, author name, output format (e.g., PDF or HTML), and theme. The output for HTML would be like @fig-html-output
+
+    ```{r}
+    #| label: fig-html-output
+    #| fig-cap: "HTML Output."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/step1_img.png")
+    ```
+
+5.  Don't forget to save your file and rename it.
+
+6.  Create a `.gitignore` file to prevent Git from tracking files that shouldn't be included in version control.
+
+    For example, we don’t want Git to track the .Rproj.user/ folder, which is automatically created when we make a new R project. To exclude it, we need to include that line in the text file.
+
+    ::: callout-note
+    ### Creating .gitignore file
+
+    Go to **File \> New File \> Text File**
+
+    type .Rproj.user/ and save the file as .gitignore
+    :::
+
+::: callout-caution
+This setup only creates a new project **without version control**. It simply creates a new project folder in your chosen location.
+:::
+
+## Step 2: Initialise The Git Repository
+
+1.  Open your terminal in R Studio
+
+2.  Make sure it has the correct path (See @fig-directory). If not, use `cd` command to change the directory
+
+    ``` bash
+    cd path/to/your/project
+    ```
+
+    ```{r}
+    #| label: fig-directory
+    #| fig-cap: "Correct Directory."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/step2_img.png")
+    ```
+
+3.  If you are in the correct directory, initialise the new Git repository using this command in your terminal:
+
+    ``` bash
+    git init
+    ```
+
+4.  Add all files to staging area using `git add`. You can use `git add .` to stage all the files, or just use `git add your_file_name` for specific file.
+
+5.  Check git status and commit to the repository.
+
+    ``` bash
+    git status
+    git add .
+    git commit -m "Input your commit message here"
+    ```
+
+6.  Set up your remote repository.
+
+    Go to [GitHub](%5Bhttps://github.com%5D(https://github.com/)) and create a new repository without README, .gitignore, or license (See @fig-copy-ssh)
+
+7.  Copy the **SSH URL** (See @fig-copy-ssh).
+
+    ```{r}
+    #| label: fig-copy-ssh
+    #| fig-cap: "New Repository and Copy SSH URL from GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/copy_ssh_url.pdf")
+    ```
+
+8.  Go back to your terminal in R Studio, add the remote repository URL to your local repository and push to GitHub.
+
+    ``` bash
+    git remote add origin <paste your SSH URL here>
+    git push -u origin main
+    ```
+
+9.  (Optional but recommended) Add a license to your repository.
+
+    A license gives clear permission for others to use your work. Without a license, even if your project is public, others do not have the right to copy, use, or share it. Adding a license shows what people are allowed to do with your code and helps protect your work.
+
+    ::: callout-note
+    ### How to add license?
+
+    Go to **New file \> Create new file \> Text File**, Copy and paste from [LICENSE](https://choosealicense.org/)
+
+    Don’t forget to commit and push:
+
+    ``` bash
+    git add LICENSE
+    git commit -m "Add license file"
+    git push
+    ```
+    :::
+
+# 2. Working with Branches and Making Changes
+
+This section will guide you through creating a new branch, making changes to your project, and pushing those changes to GitHub. You’ll also learn how to amend a commit.
+
+## Create a new branch
+
+1.  Go to your R Studio terminal.
+
+2.  You can create new branch by `git branch branch_name` and switch to that branch using `git switch branch_name` See @fig-branch.
+
+    ::: callout-tip
+    ### Or do this in one command
+
+    git switch -c branch_name
+    :::
+
+    ```{r}
+    #| label: fig-branch
+    #| fig-cap: "Creating Branch."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/create_branch.png")
+    ```
+
+3.  If you are currently on the new branch, you can make changes and commit them using:
+
+    ``` bash
+    git add .
+    git commit -m "Your Messages"
+    ```
+
+4.  You can check your branches in GitHub (See @fig-check-branch).
+
+    ```{r}
+    #| label: fig-check-branch
+    #| fig-cap: "Check Branches in GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/check_branch.png")
+    ```
+
+## Amend Previous Commit
+
+Assuming you have already committed your changes but forgot to include the data folder, you can amend your previous commit to add it.
+
+::: callout-note
+### When and Why to use –-amend?
+
+We use `--amend` when we want to **update the most recent commit**.
+
+For example, to include a file we forgot to add, or to fix a typo in the commit message. It lets us keep the commit history clean without creating a second, separate commit for something small.
+:::
+
+1.  Add the data folder in your project folder.
+
+2.  Use this command to amend previous commit, and push it (See @fig-amend):
+
+    ``` bash
+    git add data/
+    git commit --amend -m "Your Messages"
+    git push -u origin (branch_name)
+    ```
+
+    ::: callout-tip
+    The `-u` flag tells Git to remember the connection between your local branch and the remote one. Next time, you can simply run `git push`, and Git will remember the connection.
+    :::
+
+    ```{r}
+    #| label: fig-amend
+    #| fig-cap: "Command for Amend."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/amend.png")
+    ```
+
+# 3. Handling Merge Conflicts
+
+If you make changes to the same line in both your new branch and the main branch, Git will detect a conflict and show a merge conflict when you try to combine them.
+
+1.  Assuming you have made changes to the same line in both the main branch and the new branch, you can now merge the new branch into main:
+
+    ``` bash
+    git switch main
+    git merge (branch_name)
+    ```
+
+2.  Git will show the merge conflict (See @fig-conflict)
+
+    ```{r}
+    #| label: fig-conflict
+    #| fig-cap: "Merge Conflict."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/conflict.png")
+    ```
+
+    ::: callout-important
+    ``` text
+    <<<<<<< HEAD
+
+    This is the version from the main branch.
+
+    =======
+
+    This is the version from the other branch (e.g., testbranch).
+
+    >>>>>>> testbranch
+    ```
+
+    This means:
+
+    -   Everything between `<<<<<<< HEAD` and `=======` is from the **main** branch.
+
+    -   Everything after `=======` until `>>>>>>> branch-name` is from the **branch you’re merging in** (like `testbranch`).
+    :::
+
+3.  To resolve the merge conflict, edit the file to keep which changes you want (or combine them), and make sure you remove the conflict markers (\<\<\<\<\<\<\< HEAD, ======= and \>\>\>\>\>\>\> branch_name).
+
+4.  Save the changes and push it with meaningful commit message.
+
+5.  Check the git status in GitHub (See @fig-gitstatus)
+
+    ```{r}
+    #| label: fig-gitstatus
+    #| fig-cap: "Git Status in GitHub."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/git_status.pdf")
+    ```
+
+# 4. Tags, Clean-up, and History
+
+Now that your changes have been merged, this section covers how to tag your project version, clean up branches you no longer need, and view your commit history in a condensed format to keep your Git workflow organized and clear.
+
+## Create a Tag
+
+Tags let you mark a milestone in your project's history, such as v1.0 after a successful merge. In this step, you will create a tag for your latest commit so you can easily refer to that version later.
+
+1.  Go to your terminal in R Studio.
+
+2.  Make sure you are on the main branch (or the branch with the commit you want to tag).
+
+3.  Use this command to tag the most recent commit as v1.0, and push the tag:
+
+    ``` bash
+    git tag -a v1.0 -m "Write a message to describe your milestone"
+    git push origin v1.0
+    ```
+
+    ::: callout-tip
+    ### What if I want to tag other commit (not the most recent)?
+
+    You can also tag a previous commit by first checking the history with `git log --oneline`, which will be covered in the @sec-git-log.
+
+    Then, use `git tag -a v0.9 <commit-code> -m "Describe the tag"` to tag that commit.
+
+    You can replace `v0.9` with any tag name that suits your project. This is useful if you forgot to tag an earlier milestone.
+    :::
+
+4.  Check the tag. You can check it from GitHub (See @fig-tag). Or, you can also check it using:
+
+    ``` bash
+    git tag
+    ```
+
+    ```{r}
+    #| label: fig-tag
+    #| fig-cap: "Check the Tag."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/tag.png")
+    ```
+
+## Deleting Branch
+
+Deleting a branch after merging helps avoid clutter and confusion, especially when working on multiple features or versions.
+
+1.  Make sure you are on the **main** branch (or any branch other than the one you want to delete). Git won't let you delete the branch you're currently on.
+
+2.  Delete the branch locally:
+
+    ``` bash
+    git branch -d branch_name
+    ```
+
+3.  Delete the branch on GitHub (remote):
+
+    ``` bash
+    git push origin --delete branch_name
+    ```
+
+## Commit History {#sec-git-log}
+
+Sometimes, you just want a quick overview of what has been committed without all the details. You can use the following command to see a short version of your Git commit history:
+
+``` bash
+git log --oneline
+```
+
+Then it will show you the output like @fig-log. This shows each commit as a single line, with the commit hash and its message. It's useful for finding commit IDs, reviewing your work at a glance, or tagging a past commit.
+
+```{r}
+#| label: fig-log
+#| fig-cap: "git log --oneline output."
+#| out-width: "80%"
+#| echo: false
+knitr::include_graphics("Images/log.png")
+```
+
+::: callout-note
+**HEAD** shows your current location in the repository. It points to the latest commit on the branch you are working on.
+:::
+
+# 5. Creating a Plot and Undoing Commit
+
+In this section, you will create a simple plot using ggplot2, commit the change, then learn how to undo the commit while keeping your changes safe.
+
+## Create a Section and Plot
+
+1.  In your `.qmd` file, you can add headings using `#` For example, to create a section for your visualisation:
+
+    ``` bash
+    ## Visualisations (Headings 2)
+    ### Headings 3
+    ```
+
+2.  Create a code chunk by pressing `Command + Option + I` (Mac) or using the `Insert Chunk` button in the toolbar. See @fig-chunk for a visual reference.
+
+    ```{r}
+    #| label: fig-chunk
+    #| fig-cap: "Create R Chunk."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/chunk.png")
+    ```
+
+3.  You can make plots using the ggplot2 package. If you haven’t used it before, install and load it with these in your R code chunk:
+
+    ``` bash
+    install.packages("ggplot2")
+    library(ggplot2)
+    ```
+
+4.  Load your dataset using `read.csv()` or depends on the file's format.
+
+5.  Use ggplot2 to create a chart. In this example, I will use a line chart to visualise the relationship between two variables (See @fig-vis).
+
+    ```{r}
+    #| label: fig-vis
+    #| fig-cap: "Create a line chart."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/initial_commit.png")
+    ```
+
+    ::: callout-tip
+    ### Learn More
+
+    For more information about `ggplot2`, [click here](https://ggplot2.tidyverse.org).
+    :::
+
+6.  Save and commit the changes as shown in @fig-vis.
+
+## Undoing a Commit
+
+Assume you have committed your plot, but then realise you made a mistake. For example, you forgot to include a title or other details (See @fig-reset). You can undo the last commit without losing your changes by running:
+
+``` bash
+git reset --soft HEAD~1
+```
+
+-   HEAD\~1 refers to the commit before the latest one.
+
+-   This command removes the last commit but keeps your changes staged so you can fix them and recommit.
+
+```{r}
+#| label: fig-reset
+#| fig-cap: "Undoing a commit."
+#| out-width: "80%"
+#| echo: false
+knitr::include_graphics("Images/reset.pdf")
+```
