@@ -2,10 +2,13 @@
 title: "Written Guide:"
 subtitle: "Reproducible Project Setup Using Git, GitHub, and RStudio"
 author: "Akbar Rakha Syahpradana (34096647)"
-format: pdf
+format:
+  html:
+    theme: minty
+  pdf: default
 ---
 
-# Setting Up Your Project and Version Control (Git)
+# 1. Setting Up Your Project and Version Control (Git)
 
 This section will guide you through creating a Git repository from existing work and setting up the remote repository.
 
@@ -37,7 +40,7 @@ This section will guide you through creating a Git repository from existing work
 
     ```{r}
     #| label: fig-html-output
-    #| fig-cap: "New Repository and Copy SSH URL from GitHub."
+    #| fig-cap: "HTML Output."
     #| out-width: "80%"
     #| echo: false
     knitr::include_graphics("Images/step1_img.png")
@@ -97,7 +100,7 @@ This setup only creates a new project **without version control**. It simply cre
 
 6.  Set up your remote repository.
 
-    Go to \[GitHub\] "https://github.com/" and create a new repository without README, .gitignore, or license (See @fig-copy-ssh)
+    Go to \[GitHub\]([https://github.com](https://github.com/)) and create a new repository without README, .gitignore, or license (See @fig-copy-ssh)
 
 7.  Copy the **SSH URL** (See @fig-copy-ssh).
 
@@ -123,7 +126,7 @@ This setup only creates a new project **without version control**. It simply cre
     ::: callout-note
     ### How to add license?
 
-    Go to **New file \> Create new file \> Text File**, Copy and paste from \[LICENSE\] "<https://choosealicense.org/>"
+    Go to **New file \> Create new file \> Text File**, Copy and paste from \[LICENSE\](<https://choosealicense.org/>)
 
     Don’t forget to commit and push:
 
@@ -134,7 +137,7 @@ This setup only creates a new project **without version control**. It simply cre
     ```
     :::
 
-# Working with Branches and Making Changes
+# 2. Working with Branches and Making Changes
 
 This section will guide you through creating a new branch, making changes to your project, and pushing those changes to GitHub. You’ll also learn how to amend a commit.
 
@@ -168,7 +171,7 @@ This section will guide you through creating a new branch, making changes to you
 4.  You can check your branches in GitHub (See @fig-check-branch).
 
     ```{r}
-    #| label: fig-check_branch
+    #| label: fig-check-branch
     #| fig-cap: "Check Branches in GitHub."
     #| out-width: "80%"
     #| echo: false
@@ -209,7 +212,7 @@ For example, to include a file we forgot to add, or to fix a typo in the commit 
     knitr::include_graphics("Images/amend.png")
     ```
 
-# Handling Merge Conflicts
+# 3. Handling Merge Conflicts
 
 If you make changes to the same line in both your new branch and the main branch, Git will detect a conflict and show a merge conflict when you try to combine them.
 
@@ -262,7 +265,7 @@ If you make changes to the same line in both your new branch and the main branch
     knitr::include_graphics("Images/git_status.pdf")
     ```
 
-# Tags, Clean-up, and History
+# 4. Tags, Clean-up, and History
 
 Now that your changes have been merged, this section covers how to tag your project version, clean up branches you no longer need, and view your commit history in a condensed format to keep your Git workflow organized and clear.
 
@@ -345,6 +348,72 @@ knitr::include_graphics("Images/log.png")
 **HEAD** shows your current location in the repository. It points to the latest commit on the branch you’re working on.
 :::
 
-# Undoing a Commit Without Losing Your Work
+# 5. Creating a Plot and Undoing Commit
 
-10
+In this final section, you’ll create a simple plot using ggplot2, commit the change, then learn how to undo the commit while keeping your changes safe.
+
+## Create a Section and Plot
+
+1.  In your `.qmd` file, you can add headings using `#` For example, to create a section for your visualisation:
+
+    ``` bash
+    ## Visualisations (Headings 2)
+    ### Headings 3
+    ```
+
+2.  Create a code chunk by pressing `Command + Option + I` (Mac) or using the `Insert Chunk` button in the toolbar. See @fig-chunk for a visual reference.
+
+    ```{r}
+    #| label: fig-chunk
+    #| fig-cap: "Create R Chunk."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/chunk.png")
+    ```
+
+3.  You can make plots using the ggplot2 package. If you haven’t used it before, install and load it with these in your R code chunk:
+
+    ``` bash
+    install.packages("ggplot2")
+    library(ggplot2)
+    ```
+
+4.  Load your dataset using `data()` or `read.csv()`, depends on the file's format.
+
+5.  Use ggplot2 to create a chart. In this example, I’ll use a line chart to visualise the relationship between two variables (See @fig-vis).
+
+    ```{r}
+    #| label: fig-vis
+    #| fig-cap: "Create a line chart."
+    #| out-width: "80%"
+    #| echo: false
+    knitr::include_graphics("Images/initial_commit.png")
+    ```
+
+    ::: callout-tip
+    ### Learn More
+
+    For more information about `ggplot2`, \[click here\](<https://ggplot2.tidyverse.org>).
+    :::
+
+6.  Save and commit the changes as shown in @fig-vis.
+
+## Undoing a Commit
+
+Assume you’ve committed your plot, but then realize you made a mistake. For example,you forgot to include a title or other details (See @fig-reset). You can undo the last commit without losing your changes by running:
+
+``` bash
+git reset --soft HEAD~1
+```
+
+-   HEAD\~1 refers to the commit before the latest one.
+
+-   This command removes the last commit but keeps your changes staged so you can fix them and recommit.
+
+```{r}
+#| label: fig-reset
+#| fig-cap: "Undoing a commit."
+#| out-width: "80%"
+#| echo: false
+knitr::include_graphics("Images/reset.pdf")
+```
